@@ -1,0 +1,28 @@
+   header {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: xxx-large;
+    font-weight: 800;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  h3 {
+    text-align: center;
+  }
+  
+  .world-container {
+    position: relative; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .info-column {
+    position: absolute; 
+    top: 0;
+    right: 0; 
+    padding: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  
