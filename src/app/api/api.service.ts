@@ -10,32 +10,29 @@ import { map } from 'rxjs/operators';
 export class APIService {
   private apiUrl = 'http://api.worldbank.org/v2/country/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getCountryInfo(isoCode: string): Observable<Country> {
     const url = `${this.apiUrl}${isoCode}?format=json`;
-  
+
     return this.http.get(url).pipe(
-      map((data: any) => {
-        if (data[1] && data[1].length > 0) {
-          const countryInfo = data[1][0];
-  
-          const country: Country = {
-            name: countryInfo.name,
-            capital: countryInfo.capitalCity,
-            region: countryInfo.region?.value || 'N/A',
-            incomeLevel: countryInfo.incomeLevel?.value || 'N/A',
-            longitude: countryInfo.longitude || 'N/A',
-            latitude: countryInfo.latitude || 'N/A',
-          };
-  
-          return country;
-        } else {
-          throw new Error('Country information not found in the API response.');
-        }
-      })
+      map((data: any) => this.mapCountryInfo(data))
     );
   }
-  
-  
+
+  private mapCountryInfo(data: any): Country {
+    if (data[1] && data[1].length > 0) {
+      const countryInfo = data[1][0];
+      return {
+        name: countryInfo.name,
+        capital: countryInfo.capitalCity,
+        region: countryInfo.region?.value || 'N/A',
+        incomeLevel: countryInfo.incomeLevel?.value || 'N/A',
+        longitude: countryInfo.longitude || 'N/A',
+        latitude: countryInfo.latitude || 'N/A',
+      };
+    } else {
+      throw new Error('Country information not found in the API response.');
+    }
+  }
 }
